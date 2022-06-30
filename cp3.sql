@@ -92,4 +92,40 @@ create table solicitud_ingreso(
 );
 alter table solicitud_ingreso add constraint solicitud_ingreso_pk primary key (id_solicitud,empresa_id_empresa);
 
-create table();
+create table empresa(
+    id_empresa number not null,
+    nombre_empresa varchar(20) not null,
+    direccion_empresa_id_direccion number not null
+);
+alter table empresa add constraint empresa_pk primary key(id_empresa);
+
+create table direccion_empresa(
+    id_empresa number not null,
+    direccion char not null,
+    comuna_id_comuna number not null
+);
+alter table afiliado(
+    rut_afiliado char not null,
+    nombres varchar(20) not null,
+    apellidos varchar(20) not null,
+    correo_electronico char not null,
+    numero_carnet_socio number not null,
+    fecha_nacimiento_afiliado date not null,
+    empresa_id_empresa number not null
+);
+alter table afiliado add constraint afiliado_pk primary key(rut_afiliado);
+
+create table pasaporte _afiliado(
+    id_pasaporte number not null,
+    numero_pasaporte_afiliado number not null,
+    afiliado_rut_afiliado char not null
+);
+alter table pasaporte_afiliado add constraint pasaporte_afiliado_pk primary key(id_pasaporte);
+
+create table direccion_afiliado(
+    id_direccion number not null,
+    comuna_id_comuna number not null,
+    afiliado_rut_afiliado char not null,
+    direccion_afiliado varchar(30) not null
+);
+alter table direccion_afiliado add constraint direccion_afiliado_pk primary key(id_direccion);
