@@ -100,11 +100,13 @@ create table empresa(
 alter table empresa add constraint empresa_pk primary key(id_empresa);
 
 create table direccion_empresa(
-    id_empresa number not null,
+    id_direccion number not null,
     direccion char not null,
     comuna_id_comuna number not null
 );
-alter table afiliado(
+alter table  direccion_empresa add constraint direccion_empresa-pk primary key(id_direccion);
+
+create table afiliado(
     rut_afiliado char not null,
     nombres varchar(20) not null,
     apellidos varchar(20) not null,
@@ -129,3 +131,99 @@ create table direccion_afiliado(
     direccion_afiliado varchar(30) not null
 );
 alter table direccion_afiliado add constraint direccion_afiliado_pk primary key(id_direccion);
+
+create table descuentos(
+    id_descuento number not null,
+    nombre varchar(20) not null,
+    afiliado-rut-afiliado char not null
+);
+alter table descuentos add constraint descuento_pk primary key(id_descuentos);
+
+create table tipo_descuento(
+    id_descuento number not null,
+    tipo_descuento varchar(20) not null
+    cantidad_descuento number not null,
+    uso_descuento number not null,
+    fecha_uso date not null,
+    descuentos_id_descuentos number not null
+);
+alter table tipo_descuento add constraint tipo_descuentos_pk primary key (id_descuento);
+
+create table discapacidad_afiliado(
+    id_discapacidad number not null,
+    afiliado_rut_afiiliado char not null,
+);
+alter table discapaccidad_afiliado add constraint discapacidad_afiliado_pk primary key(id_discapacidad);
+
+create table tipo_discapacidad(
+    id_discapacidad number not null,
+    tipo_discapacidad varchar(20) not null,
+    discapacidad_afiliado_id_discapacidad number not null
+);
+alter table tipo_discapacidad add constraint tipo_discapacidad_pk primary key(id_discapacidad);
+
+create table telefono_afiliado(
+    id_telefono number not null,
+    afiliado_rut_afiliado char not null
+);
+alter table telefono_Afiliado add constraint telefono_afiliado_pk primary key(id_telefono);
+
+create table tipo_telefono_afiliado(
+    id_telefono number not null,
+    telefono_celular number not null,
+    telefono_casa number not null,
+    telefono_emergencia number not null,
+    telefono_afiliado_id_telefono number not null
+);
+alter table tipo_telefono_afiliado add constraint tipo_telefono_afiliado_pk primary key(id_telefono);
+
+create table aseguradora(
+    id_aseguradora number not null,
+    nombre varchar(20) not null,
+    afiliado_rut_afiliado char not null
+);
+alter table aseguradora add constraint aseguradora_pk primary key(id_aseguradora);
+
+create table vehiculo_afiliado(
+    id_vehiculo number not null,
+    patente_vehiculo char not null,
+    marca_vehiculo varchar(20) not null,
+    color_vehiculo varchar(20) not null,
+    numero_chasis number not null,
+    numero_motor number not null,
+    tipo_vehiculo varchar(20) not null,
+    aseguradora_id_aseguradora number not null
+);
+alter table vehiculo_afiliado add constraint  vehiculo_afiliado_pk primary key (id_vehiculo);
+
+create table pago_arancel_afiliados(
+    id_pago number not null,
+    nombre_pago varchar(20) not null,
+    afiliado_rut_afiliado char not null
+);
+alter table pago_arancel_afiliados add constraint pago_arancel_afiliado_pk primary key(id_pago);
+
+create table medio_pago_arancel(
+    id_pago number not null,
+    medio_pago varchar(20) not null,
+    cantidad_pagar number not null,
+    banco_con_que_paga varchar(20) not null,
+    pago_arancel_afiliados_id_pago number not null
+);
+alter table medio_pago_arancel add constraint medio_pago_arancel_pk primary key(id_pago);
+
+create table cheque(
+    id_pago number no null,
+    numero_cheque number not null,
+    banco varchar(15) not null,
+    medio_pago_arancel_id_pago number not null
+);
+alter table cheque add constraint cheque_pk primary key(id_pago);
+
+create table beneficios_afiliados(
+    id_benefcio number not null,
+    afiliado_rut_afiliado char not null,
+);  
+alter table beneficios_afiliados add constraint cheque_pk primary key(id_beneficio);
+
+create table tipo_beneficio_afiliado();
