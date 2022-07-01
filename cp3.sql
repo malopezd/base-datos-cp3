@@ -221,9 +221,31 @@ create table cheque(
 alter table cheque add constraint cheque_pk primary key(id_pago);
 
 create table beneficios_afiliados(
-    id_benefcio number not null,
+    id_beneficio number not null,
     afiliado_rut_afiliado char not null,
 );  
 alter table beneficios_afiliados add constraint cheque_pk primary key(id_beneficio);
 
-create table tipo_beneficio_afiliado();
+create table tipo_beneficio_afiliado(
+    id_beneficio number no null,
+    tipo_beneficio varchar(20)no null,
+    tipo_descuento varchar(20)no null,
+    beneficios_afiliados_id_beneficio number not null
+);
+alter table tipo_beneficio_afiliado add constraint tipo_beneficio_afiliado_pk primary key(id_beneficio);
+
+create table cargas_afiliado(
+    id_carga number not null,
+    afiliado_rut_afiliado char not null,
+);
+alter table cargas_afiliado add constraint carga_afiliado_pk primary key(id_carga);
+
+create table cargas_as_afiliado(
+    rut_carga number not null,
+    nombre_carga varchar(20) not null,
+    apellidos_carga varchar(20) not null,
+    parentezco varchar(15) not null,
+    cargas_afiliado_id_carga number not null
+);
+ alter table cargas_as_afiliado add constraint cargas_as_afiliado_pk primary key(rut_carga);
+ alter table
