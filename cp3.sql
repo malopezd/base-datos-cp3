@@ -157,6 +157,12 @@ create table afiliado(
     fecha_nacimiento_afiliado date not null,
     empresa_id_empresa number not null
 );
+alter table empresa add constraint afiliado_empresa_fk foreign key(empresa_id_empresa)
+references empresa(id_empresa);
+
+alter table direccion_afiliado add constraint afiliado_direccion_afiliado_fk foreign key(direccion_afiliado_id_direccion)
+references direccion_afiliado(id_direccion);
+
 alter table afiliado add constraint afiliado_pk primary key(rut_afiliado);
 
 create table pasaporte _afiliado(
@@ -164,6 +170,9 @@ create table pasaporte _afiliado(
     numero_pasaporte_afiliado number not null,
     afiliado_rut_afiliado char not null
 );
+alter table afiliado add constraint pasaporte_afiliado_afiliado_fk foreign key(afiliado_rut_afiliado)
+references afiliado(rut_afiliado); 
+
 alter table pasaporte_afiliado add constraint pasaporte_afiliado_pk primary key(id_pasaporte);
 
 create table direccion_afiliado(
@@ -172,6 +181,9 @@ create table direccion_afiliado(
     afiliado_rut_afiliado char not null,
     direccion_afiliado varchar(30) not null
 );
+alter table comuna add constraint direccion_afiliado_comuna_fk foreign key(comuna_id_comuna)
+references comuna(id_comuna);
+
 alter table direccion_afiliado add constraint direccion_afiliado_pk primary key(id_direccion);
 
 create table descuentos(
@@ -179,6 +191,9 @@ create table descuentos(
     nombre varchar(20) not null,
     afiliado-rut-afiliado char not null
 );
+alter table afiliado add constraint descuentos_afiliado_fk foreign key(afiliado_rut_afiliado)
+references afiliado(rut_afiliado);
+
 alter table descuentos add constraint descuento_pk primary key(id_descuentos);
 
 create table tipo_descuento(
@@ -189,12 +204,18 @@ create table tipo_descuento(
     fecha_uso date not null,
     descuentos_id_descuentos number not null
 );
+alter table descuentos add constraint tipo_descuento_descuento_fk foreign key(descuentos_id_descuento)
+references descuentos(id_descuento);
+
 alter table tipo_descuento add constraint tipo_descuentos_pk primary key (id_descuento);
 
 create table discapacidad_afiliado(
     id_discapacidad number not null,
     afiliado_rut_afiiliado char not null,
 );
+alter table afiliado add constraint discapacidad_afiliado_afiliado_fk foreign key(afiliado_rut_afiliaado)
+references afiliado(rut_afiliado);
+
 alter table discapaccidad_afiliado add constraint discapacidad_afiliado_pk primary key(id_discapacidad);
 
 create table tipo_discapacidad(
@@ -202,12 +223,18 @@ create table tipo_discapacidad(
     tipo_discapacidad varchar(20) not null,
     discapacidad_afiliado_id_discapacidad number not null
 );
+alter table discapacidad_afiliado add constraint tipo_discapacidad_discapacidad_afiliado_fk foreign key(discapacidad_afiliado_id_discapacidad)
+references discapacidad_afiliado(id_discapacidad);
+
 alter table tipo_discapacidad add constraint tipo_discapacidad_pk primary key(id_discapacidad);
 
 create table telefono_afiliado(
     id_telefono number not null,
     afiliado_rut_afiliado char not null
 );
+alter table afiliado add constraint telefono_afiliado_afiliado_fk foreign key(afiliado_ru_afiliado)
+references afiliado(rut_afiliado);
+
 alter table telefono_Afiliado add constraint telefono_afiliado_pk primary key(id_telefono);
 
 create table tipo_telefono_afiliado(
@@ -217,6 +244,9 @@ create table tipo_telefono_afiliado(
     telefono_emergencia number not null,
     telefono_afiliado_id_telefono number not null
 );
+alter table telefono_afiliado add constraint tipo_telefono_afiliado_telefono_afiliado foreign key(telefono_afiliado_id_telefono)
+telefono_afiliado(id_telefono);
+
 alter table tipo_telefono_afiliado add constraint tipo_telefono_afiliado_pk primary key(id_telefono);
 
 create table aseguradora(
@@ -224,6 +254,9 @@ create table aseguradora(
     nombre varchar(20) not null,
     afiliado_rut_afiliado char not null
 );
+alter table afiliado add constraint aseguradora_afiliado_fk foreign key(afiliado_rut_afiliado)
+references afiliado(rut_afiliado);
+
 alter table aseguradora add constraint aseguradora_pk primary key(id_aseguradora);
 
 create table vehiculo_afiliado(
@@ -236,6 +269,9 @@ create table vehiculo_afiliado(
     tipo_vehiculo varchar(20) not null,
     aseguradora_id_aseguradora number not null
 );
+alter table aseguradora add constraint vehiculo_afiliado_aseguradora_fk foreign key(aseguradora_id_aseguradora)
+references aseguradora(id_aseguradora);
+
 alter table vehiculo_afiliado add constraint  vehiculo_afiliado_pk primary key (id_vehiculo);
 
 create table pago_arancel_afiliados(
@@ -243,6 +279,9 @@ create table pago_arancel_afiliados(
     nombre_pago varchar(20) not null,
     afiliado_rut_afiliado char not null
 );
+alter table afiliado add constraint pago_arancel_afiliados_afiliado_fk foreign key(afiliado_rut_afiliado)
+references afiliado(rut_afiliado);
+
 alter table pago_arancel_afiliados add constraint pago_arancel_afiliado_pk primary key(id_pago);
 
 create table medio_pago_arancel(
@@ -252,6 +291,9 @@ create table medio_pago_arancel(
     banco_con_que_paga varchar(20) not null,
     pago_arancel_afiliados_id_pago number not null
 );
+alter table pago_arancel_afiliados add constraint medio_pago_arancel_pago_arancel_afiliados_fk foreign key(pago_arancel_afiliados_id_pago)
+references pago_arancel_afiliados(id_pago);
+
 alter table medio_pago_arancel add constraint medio_pago_arancel_pk primary key(id_pago);
 
 create table cheque(
@@ -260,12 +302,18 @@ create table cheque(
     banco varchar(15) not null,
     medio_pago_arancel_id_pago number not null
 );
+alter table medio_pago_arancel add constraint cheque_medio_pago_arancel_fk foreign key(medio_pago_arancel_id_pago)
+references medio_pago_arancel(id_pago);
+
 alter table cheque add constraint cheque_pk primary key(id_pago);
 
 create table beneficios_afiliados(
     id_beneficio number not null,
     afiliado_rut_afiliado char not null,
-);  
+);
+alter table afiliado add constraint beneficios_afiliados_afiliado_fk foreign key(afiliado_rut_afilido)
+references afiliado(rut_afiliado);
+
 alter table beneficios_afiliados add constraint cheque_pk primary key(id_beneficio);
 
 create table tipo_beneficio_afiliado(
@@ -274,12 +322,18 @@ create table tipo_beneficio_afiliado(
     tipo_descuento varchar(20)no null,
     beneficios_afiliados_id_beneficio number not null
 );
+alter table beneficios_afiliados add constraint tipo_beneficio_afiliado_beneficios_afiliados_fk foreign key(beneficios-afiliados_id_beneficio)
+references beneficios_afiliados(id_beneficio);
+
 alter table tipo_beneficio_afiliado add constraint tipo_beneficio_afiliado_pk primary key(id_beneficio);
 
 create table cargas_afiliado(
     id_carga number not null,
     afiliado_rut_afiliado char not null,
 );
+alter table afiliado add constraint cargas_afiliados_afiliado_fk foreign key(afiliado_rut_afiliado)
+references afiliado(rut_afiliado);
+
 alter table cargas_afiliado add constraint carga_afiliado_pk primary key(id_carga);
 
 create table cargas_as_afiliado(
@@ -289,5 +343,8 @@ create table cargas_as_afiliado(
     parentezco varchar(15) not null,
     cargas_afiliado_id_carga number not null
 );
+alter table cargas_afiliados add constraint carga_as_afiliado_cargas_afiliado_fk foreign key(cargas_afiliado_id_carga)
+references cargas_afiliado(id_carga);
+
  alter table cargas_as_afiliado add constraint cargas_as_afiliado_pk primary key(rut_carga);
  
