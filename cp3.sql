@@ -11,6 +11,9 @@ id_provincia number not null ,
 nombre varchar (15) not null ,
 region_id_region number not null
 );
+alter table region add constraint provincia_region_fk foreign key(region_id_region)
+references region(id_region);
+
 alter table provincia add constraint provincia_pk primary key(id_provincia);
 
 create table comuna (
@@ -18,12 +21,18 @@ create table comuna (
     nombre varchar (15) not null , 
     provincia_id_provincia number not null
 );
+alter table provincia add constraint comuna_provincia_fk foreign key(provincia_id_provincia)
+references provincia(id_provincia);
+
 alter table comuna add constraint comuna_pk primary key (id_comuna);
 
 create table direcion_postulante(
     direccion varchar (20) not null ,
     comuna_id_comuna number not null
 );
+alter table comuna add constraint direccion_postulante_comuna_fk foreign key(comuna_id_comuna)
+references comuna(id_comuna);
+
 alter table direccion_postulante add constraint direccion_postulante_pk primary key(direccion);
 
 create table postulante(
@@ -39,21 +48,33 @@ create table postulante(
     solicitud_ingreso_empresa_id_empresa number not null , 
     direccion_postulante_direccion varchar(50) not null
 );
+alter table direccion_postulante add constraint postulante_direccion_postulante_fk foreign key(direccion_postulante_direccion)
+references direccion_postulante(direccion);
+
+alter table solicitud_ingreso add constraint postulante_solicitud_ingreso_fk foreign key(solicitud_ingreso_id_solicitud,solicitud_ingreso_empresa_id)
+references solicitud_ingreso(id_solicitu,empresa_id_empresa); 
+
 alter table postulante add constraint postulante_pk primary key (rut_postulante);
 
-create table paasaporte_postulante(
+create table pasaporte_postulante(
     id_pasaporte number not null,
     numero_pasaporte number not null,
     nacionalidad varchar(15) not null,
     pustalante_rut_postulante char not null
 );
-alter table postulante add constraint postulante_pk primary key(id_pasaporte);
+alter table postulante add constraint pasaporte_postulante_postulante_fk foreign key(postulante_rut_postulante)
+references postulante(rut-postulante);
+
+alter table pasaporte_postulante add constraint pasaporte_postulante_pk primary key(id_pasaporte);
 
 create table discapacidad_postulante(
     rut_postulante char not null,
     id_discapacidad number not null,
     postulante_rut_postulante char not null
 );
+alter table postulante add constraint discapacidad_postulante_postulante_fk foreign key(postulante_rut_postulante)
+references postulante(rut_postulante);
+
 alter table postulante add constraint postulante_pk primary key (rut_postulante);
 
 create table tipo_discapaccidad_postulante(
@@ -63,25 +84,37 @@ create table tipo_discapaccidad_postulante(
     tipo_dicapacidad varchar(15) not null,
     discapacidad_postulante_rut_postulante char not null,
 );
+alter table discapacidad_postulante add constraint tipo_discapacidad_postulante_discapacidad_postulante_fk foreign key(discapacidad_postulante_rut_postulante)
+references discapacidad_postulante(rut_postulante);
+
 alter table tipo_discapacidad_postulante add constraint tipo_discapacidad_postulante_pk primary key(rut_postulante,id_discapacidad)
 
 create table telefonos_postulantes(
-    telefono-id_telefono number not null,
-    postulante_rut_postulante char not null
+    postulante_rut_postulante char not null,
+    id_telefono number not null
 );
+alter table postulante add constraint telefonos_postulantes_telefono_fk foreign key(postulante_rut_postulante)
+references postulante(rut_postulante);
+
 alter table telefonos_postulantes add constraint telefonos_postulantes_pk primary key(id_telefono);
 
 create table telefono(
     id_telefono number not null,
     nombre varchar(20) not null,
-    tipo_telefono_id_tipo_telefono number not null
+    telefonos_postulantes_id_telefono number not null
 );
+alter table telefonos_postulantes add constraint telefono_telefonos_postulantes_fk foreign key(telefonos_postulantes_id_telefonos)
+references telefonos_postulantes(id_telefono);
+
 alter table telefono add constraint telefono_pk primary key(id_telefono);
 
 create table tipo_telefono(
     id_tipo_telefono number not null,
     nombre varchar(20) not null
 );
+alter table telefono add constraint tipo_telefono_teefono_fk foreign key(telefono_id_telefono)
+references telefono(id_telefono);
+
 alter table tipo_telefono add constraint tipo_telefono_pk primary key (id_tipo_telefono);
 
 create table solicitud_ingreso(
@@ -90,6 +123,9 @@ create table solicitud_ingreso(
     fecha_solicitud date not null,
     empresa_id_empresa number not null
 );
+alter table empresa add constraint solicitud_ingreso_empresa_fk foreign key(empresa_id_empresa)
+references empresa(id_empresa);
+
 alter table solicitud_ingreso add constraint solicitud_ingreso_pk primary key (id_solicitud,empresa_id_empresa);
 
 create table empresa(
@@ -97,6 +133,9 @@ create table empresa(
     nombre_empresa varchar(20) not null,
     direccion_empresa_id_direccion number not null
 );
+alter table direccion_empresa add constraint empresa_direccion_empresa_fk foreign key(direccion_empresa_id_direccion)
+references direccion_empresa(id_direccion);
+
 alter table empresa add constraint empresa_pk primary key(id_empresa);
 
 create table direccion_empresa(
@@ -104,6 +143,9 @@ create table direccion_empresa(
     direccion char not null,
     comuna_id_comuna number not null
 );
+alter table comuna add constraint direccion_empresa_comuna_fk foreign key(comuna_id_comuna)
+references comuna(id_comuna);
+
 alter table  direccion_empresa add constraint direccion_empresa-pk primary key(id_direccion);
 
 create table afiliado(
@@ -248,4 +290,4 @@ create table cargas_as_afiliado(
     cargas_afiliado_id_carga number not null
 );
  alter table cargas_as_afiliado add constraint cargas_as_afiliado_pk primary key(rut_carga);
- alter table
+ 
