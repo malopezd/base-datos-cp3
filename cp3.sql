@@ -9,9 +9,9 @@ alter table region add constraint region_pk primary key(id_region);
 create table provincia (
 id_provincia number not null ,
 nombre varchar (15) not null ,
-region_id_region number not null
+id_region number not null
 );
-alter table region add constraint provincia_region_fk foreign key(region_id_region)
+alter table region add constraint provincia_region_fk foreign key(id_region)
 references region(id_region);
 
 alter table provincia add constraint provincia_pk primary key(id_provincia);
@@ -348,3 +348,31 @@ references cargas_afiliado(id_carga);
 
  alter table cargas_as_afiliado add constraint cargas_as_afiliado_pk primary key(rut_carga);
  
+insert to region(1,arica);  
+insert to provincia(1,la estrella,2);
+insert to comuna(1,la florida,3)
+insert to direccion_postulante(el algarrobo 9487,1);
+insert to postulante(19842966k,matias,lopez,hombre,si,450.000,nicki@gmail.com,chileno,el algarrobo 9487,0001,1,);
+insert to discapacidad_postulante(19842966k,1,204205566);
+insert to tipo_discapacidad_postulante(19842966k,1,si,minusvalido,19842966k);
+insert to telefono_postulantes(19842966k,1);
+insert to telefono(1,matias,1);
+insert to tipo_telefono(1,matias,93333877766,1);
+insert to pasaporte_postulante(1,20304050,venezolana,19842966k);
+insert to solucitud_ingreso(1,17:05,10/12/1997,1);
+insert to empresa(1,SINTACT,vickuña mackenna 332);
+insert to direccion_empresa(1,algarrobo 9487,1);
+insert to afiliado(126866984,matias,fernandez,zz@ggmail.com,0002,10/12/1997,1,el quisco 2312);
+insert to pasaporte_afiliado(1,20304050,19842966k);
+insert to direccion_afiliado(1,2,los orientales 1012);
+insert to descuentos(1,salud,19842966k);
+insert to tipo_descuento(1,salud,20%,3,02/06/2022);
+insert to telefono_afiliado(1,19842966k);
+insert to tipo_telefono(1,93344556789,2234567,933334521,1);
+insert to cargas_afiliado(1,19842966k),
+insert to carga_as_afiliado(19842966k,matias,lopez,hijo,1);
+insert to benefecios_afiliados(1,19842966k);
+insert to tipo_beneficio_afiliado(1,transporte,30%,1);
+insert to pago_arancel_afiliados(1,mensualidad,19842966k);
+insert to medio_pago_arancel(1,debito,20.000,banco santander,1);
+insert to cheque(1,132456,banco estado,1);
